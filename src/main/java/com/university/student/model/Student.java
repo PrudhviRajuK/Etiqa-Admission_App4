@@ -60,11 +60,11 @@ public class Student {
 		this.student_age = student_age;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 	public Course getCourse() {
 		return course;
 	}
-	@JsonIgnore
+	//@JsonIgnore
 	public void setCourse(Course course) {
 		this.course = course;
 	}
