@@ -12,6 +12,7 @@ import com.university.student.model.Student;
 import com.university.student.repository.CourseRepository;
 import com.university.student.repository.StudentRepository;
 
+
 @Service
 public class StudentService {
 	
@@ -35,7 +36,8 @@ public class StudentService {
 
 
     public Student createStudent(Long course_id, Student student) {
-        Set<Student> students = new HashSet<>();
+       
+    	Set<Student> students = new HashSet<>();
         Course course1 = new Course();
 
         Optional<Course> byId = courseRepository.findById(course_id);
@@ -74,15 +76,27 @@ public class StudentService {
     }
 
     public ResponseEntity<Object> deleteStudentById(long student_id) {
-        if (!studentRepository.existsById(student_id)) {
+        /*if (!studentRepository.existsById(student_id)) {
             throw new ResourceNotFoundException("Student id ", "id", student_id);
         }
-
+*/
         studentRepository.deleteById(student_id);
 
         return ResponseEntity.ok().build();
 
     }
-
+    
+    
+    public Student findById(long id) {
+    	
+    	List<Student> stdList = getAllStudents();
+		
+    	for(Student student : stdList){
+			if(student.getStudent_id() == id){
+				return student;
+			}
+		}
+		return null;
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,8 +53,33 @@ public class StudentController {
     
     // delete student
     @RequestMapping(value = "/student/{student_id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteStudentById(@PathVariable(value = "student_id") long student_id) {
-        return studentService.deleteStudentById(student_id);
+    public ResponseEntity<?> deleteStudentById(@PathVariable(value = "student_id") long student_id) {
+    	
+    	Student student = studentService.findById(student_id);
+    	
+    	if(student.getStudent_id() != null ) {
+    		 studentService.deleteStudentById(student_id);
+    	}
+          
+    	
+    	
+    	return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
+    
+    
+    /*@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
+       // logger.info("Fetching & Deleting User with id {}", id);
+ 
+        User user = userService.findById(id);
+        if (user == null) {
+            logger.error("Unable to delete. User with id {} not found.", id);
+            return new ResponseEntity(new CustomErrorType("Unable to delete. User with id " + id + " not found."),
+                    HttpStatus.NOT_FOUND);
+        }
+       
+        userService.deleteUserById(id);
+        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }*/
     
 }
