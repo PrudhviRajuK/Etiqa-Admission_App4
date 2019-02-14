@@ -28,7 +28,7 @@ public class StudentController {
 
     // get student
     @RequestMapping(value = "/getAllStudents", method = RequestMethod.GET)
-    public List<Student> getBooks() {
+    public List<Student> getStudents() {
         return studentService.getAllStudents();
     }
     
