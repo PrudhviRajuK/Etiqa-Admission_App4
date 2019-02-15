@@ -104,4 +104,27 @@ public class StudentService {
 		return findByName(student.getStudent_name())!=null;
 	}
     
+    
+    
+//students by course id
+    
+    public  List<Student> listOfStudentsByCourseID(long id) {
+    	
+    	List<Student> studentList = getAllStudents();
+    	
+    	List<Student> studentListTemp = new ArrayList<Student>();
+    	
+    	for(Student student : studentList){
+    		
+			if(student.getCourse().getCourse_id() == id){
+				
+				studentListTemp.add(student);
+			}
+			System.out.println("-------------------------"+studentListTemp.size()); 
+			//return studentListTemp;
+		}
+    	 return studentListTemp;
+    	//return null;
+	}
+    
 }

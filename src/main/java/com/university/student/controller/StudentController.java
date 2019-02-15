@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,9 +70,9 @@ public class StudentController {
     // -------------------add student-------------------------------------------
     
     @SuppressWarnings({ "unchecked", "rawtypes" })
+    @CrossOrigin
 	@RequestMapping(value = "/{course_id}/student", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createStudent(@PathVariable(value = "course_id") Long course_id, @RequestBody Student student,
-    																						  UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<?> createStudent(@PathVariable(value = "course_id") Long course_id, @RequestBody Student student) {
     	 logger.info("Creating Student : {}", student);
     	 
     	 if (studentService.isStudentExist(student)) {
@@ -82,9 +83,9 @@ public class StudentController {
     	 
     	 studentService.createStudent(course_id, student);
     	 
-    	 HttpHeaders headers = new HttpHeaders();
-         headers.setLocation(ucBuilder.path("/api/student/{student_id}").buildAndExpand(student.getStudent_id()).toUri());
-         return new ResponseEntity<String>(headers, HttpStatus.CREATED); 
+    	// HttpHeaders headers = new HttpHeaders();
+         //headers.setLocation(ucBuilder.path("/api/student/{student_id}").buildAndExpand(student.getStudent_id()).toUri());
+          return new ResponseEntity(HttpStatus.ACCEPTED,HttpStatus.CREATED);
     }
     
     // -------------------update student-------------------------------------------
@@ -127,5 +128,24 @@ public class StudentController {
     	studentService.deleteStudentById(student_id);
         return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
+    
+    //
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/students/{course_id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Student>> listOfStudentsByCourseID(@PathVariable(value = "course_id") Long course_id) {
+    	 logger.info("Fetching student with id {}", course_id);
+    	 
+    	 List<Student> studentRetrieve = studentService.listOfStudentsByCourseID(course_id);
+    	 
+    	 if(studentRetrieve == null ) {
+    		 logger.error("student with id {} not found.", course_id);
+    	     return new ResponseEntity(new CustomErrorType("student with id " + course_id 
+    	                    + " not found"), HttpStatus.NOT_FOUND);
+    	}
+    	 
+    	 return new ResponseEntity<List<Student>>(studentRetrieve, HttpStatus.OK);
+    }
+    
+    
     
 }

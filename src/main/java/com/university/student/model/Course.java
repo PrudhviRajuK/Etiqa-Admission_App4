@@ -8,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "course")
 @JsonIgnoreProperties
@@ -22,6 +24,7 @@ public class Course {
     @Column(name="course_name")
 	private String course_name;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "course")
 	private Set<Student> student = new HashSet<>();
     
