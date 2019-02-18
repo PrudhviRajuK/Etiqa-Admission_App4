@@ -26,7 +26,9 @@ public class CourseController {
 	@CrossOrigin
 	@RequestMapping(value = "/getAllCourses", method = RequestMethod.GET)
     public List<Course> getCourses() {
-        return courseService.getCourses();
+		List<Course> courses=courseService.getCourses();
+		
+        return courses;
     }
 
     @RequestMapping(value = "/course", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -50,9 +50,7 @@ public class StudentService {
     
     //update student
     public Student updateStudentById(Long student_id, Student studentRequest) {
-        if (!studentRepository.existsById(student_id)) {
-            throw new ResourceNotFoundException("Student id ", "id", student_id);
-        }
+       
         Optional<Student> student = studentRepository.findById(student_id);
 
         if (!student.isPresent()) {
@@ -62,7 +60,7 @@ public class StudentService {
         Student student1 = student.get();
         student1.setStudent_name(studentRequest.getStudent_name());
         student1.setStudent_age(studentRequest.getStudent_age());
-
+        student1.setCourse(studentRequest.getCourse());
         return studentRepository.save(student1);
     }
     

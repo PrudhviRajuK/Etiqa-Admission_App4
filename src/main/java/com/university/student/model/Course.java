@@ -6,9 +6,8 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 @Table(name = "course")

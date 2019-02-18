@@ -27,7 +27,7 @@ public class Student {
     @Column(name="student_age")
 	private Integer student_age;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Course course;
