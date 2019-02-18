@@ -90,7 +90,8 @@ public class StudentController {
     	 bean.setId(student.getStudent_id());
  		 bean.setName(student.getStudent_name());
  		 bean.setAge(student.getStudent_age());
-         bean.setCourseId(student.getCourse().getCourse_id());    
+         bean.setCourseId(student.getCourse().getCourse_id());  
+         bean.setCourse(student.getCourse().getCourse_name()); 
          
     	 return new ResponseEntity<StudentBean>(bean, HttpStatus.OK);
     }
@@ -177,7 +178,8 @@ public class StudentController {
     	 
     	 return new ResponseEntity<List<Student>>(studentRetrieve, HttpStatus.OK);
     }
-    
+   
+   
     public static class StudentBean {
     	
     	private Long id;
